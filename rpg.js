@@ -20,6 +20,8 @@ const player = {
     width : 60,
     height : 60,
     sprite : playerSprite,
+    facing : "right",
+    attackRange : 100,
 }
 
 const ennemy = {
@@ -80,23 +82,48 @@ function getRandomInt(max) {
 
 
 function update(){
-    if (keys["ArrowDown"]){  
+    if (keys["ArrowDown"]){
+        player.facing = "down";
         if (player.y + player.height >= canvas.height){
             player.y = canvas.height - player.height;
         }  else player.y += player.speed};
-    if (keys["ArrowUp"]){  
+    if (keys["ArrowUp"]){
+        player.facing = "up";
         if (player.y <= 0){
             player.y = 0;
         }  else player.y -= player.speed};
-    if (keys["ArrowRight"]){  
+    if (keys["ArrowRight"]){
+        player.facing = "right";
         if (player.x + player.width >= canvas.width ){
             player.x = canvas.width - player.width;
         }  else player.x += player.speed};
-    if (keys["ArrowLeft"]){  
+    if (keys["ArrowLeft"]){
+        player.facing = "left";
         if (player.x <= 0 ){
             player.x = 0;
         }  else player.x -= player.speed};
 }
+
+
+function attack (){
+    if (keys[" "]){
+        
+    }
+}
+
+function draw_attack_hitbox(){
+    ctx.fillStyle = "rgba(255, 220, 0, 0.45)";
+    if (player.facing == "right"){
+        ctx.fillRect(player.x + player.width ,player.y, player.attackRange, player.height);
+    } else if (player.facing == "left"){
+        ctx.fillRect(player.x - player.attackRange  ,player.y, player.attackRange, player.height);
+    } else if (player.facing == "up"){
+        ctx.fillRect(player.x  ,player.y - player.attackRange, player.width , player.attackRange);
+} else {         
+        ctx.fillRect(player.x, player.y + player.height, player.width, player.attackRange);
+}
+}
+
 
 function move_ennemy(){
     const dx = player.x - ennemy.x;
@@ -177,9 +204,11 @@ function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height, );
     ctx.drawImage(bg,0,0,canvas.width,canvas.height);
     update();
+    attack();
     move_ennemy();
     check_collision();
     draw_entity(player);
+    draw_attack_hitbox();
     draw_entity(ennemy);
     draw_hud();
     if (death()) return;
