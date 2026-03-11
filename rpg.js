@@ -22,6 +22,7 @@ const player = {
     sprite : playerSprite,
     facing : "right",
     attackRange : 100,
+    isAttacking : false,
 }
 
 const ennemy = {
@@ -107,21 +108,25 @@ function update(){
 
 function attack (){
     if (keys[" "]){
-        
+        player.isAttacking = true;
+    } else { 
+        player.isAttacking = false;
     }
 }
 
 function draw_attack_hitbox(){
     ctx.fillStyle = "rgba(255, 220, 0, 0.45)";
-    if (player.facing == "right"){
-        ctx.fillRect(player.x + player.width ,player.y, player.attackRange, player.height);
-    } else if (player.facing == "left"){
-        ctx.fillRect(player.x - player.attackRange  ,player.y, player.attackRange, player.height);
-    } else if (player.facing == "up"){
-        ctx.fillRect(player.x  ,player.y - player.attackRange, player.width , player.attackRange);
-} else {         
-        ctx.fillRect(player.x, player.y + player.height, player.width, player.attackRange);
-}
+    if (player.isAttacking){
+        if (player.facing == "right"){
+            ctx.fillRect(player.x + player.width ,player.y, player.attackRange, player.height);
+        } else if (player.facing == "left"){
+            ctx.fillRect(player.x - player.attackRange  ,player.y, player.attackRange, player.height);
+        } else if (player.facing == "up"){
+            ctx.fillRect(player.x  ,player.y - player.attackRange, player.width , player.attackRange);
+        } else {         
+            ctx.fillRect(player.x, player.y + player.height, player.width, player.attackRange);
+        } 
+    }
 }
 
 
