@@ -38,6 +38,10 @@ const ennemy = {
     sprite: ennemySprite,
 }
 
+const inventory = [];
+let isInventoryOpen = false;
+
+
 function draw_entity(entity){
     if (entity.sprite) {
         ctx.drawImage(entity.sprite, entity.x, entity.y, entity.width, entity.height);
@@ -45,28 +49,6 @@ function draw_entity(entity){
         ctx.fillStyle = entity.color;
         ctx.fillRect(entity.x, entity.y, entity.width, entity.height);
     }
-}
-
-function draw_hud(){
-    ctx.fillStyle = "rgba(150,150,150,0.4)";
-    ctx.fillRect(600, 500,200,100);
-    ctx.fillRect(750, 10, 40, 40);
-    ctx.font = "14px Arial bold";
-    ctx.fillStyle = "White";
-    ctx.fillText("Arme", 750 , 60); 
-    ctx.fillText("Level : " + player.level,610, 520);
-    ctx.fillText("Hp : " + player.hp,610, 540);
-    ctx.fillText("Attack : " + player.attack,610, 560);
-    ctx.fillText("Defence : " + player.defence,610, 580);
-    ctx.fillStyle = "black";
-    ctx.fillRect(670, 530, 100 ,10);
-    ctx.fillStyle = "red";
-    ctx.fillRect(670, 530, player.hp ,10);
-    ctx.fillRect(ennemy.x-25, ennemy.y-20, ennemy.hp ,5);
-    ctx.fillStyle = "black";
-    ctx.fillRect(670, 510, 100 ,10);
-    ctx.fillStyle = "blue";
-    ctx.fillRect(670, 510, player.xp ,10);
 }
 
 window.addEventListener("keydown", function(e){
@@ -188,22 +170,19 @@ function death(){
 }
 
 let isPaused = false;
-
 window.addEventListener("keydown", function(e){
     if (e.key === "Escape") {
         isPaused = !isPaused;
         if (isPaused) draw_pause();
         else loop();
     }
+    if (e.key === "i") {
+        isInventoryOpen = !isInventoryOpen;
+        if (isInventoryOpen) draw_inventory();
+        else loop();
+    }
 });
 
-function draw_pause(){
-    ctx.fillStyle = "rgba(78, 78, 78, 0.6)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "white";
-    ctx.font = "60px Arial";
-    ctx.fillText("PAUSE", canvas.width/2 - 90, canvas.height/2);
-}
 
 function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height, );
@@ -217,9 +196,13 @@ function loop() {
     draw_entity(ennemy);
     draw_hud();
     if (death()) return;
+    if(isInventoryOpen){
+        draw_inventory();
+    }
     if (isPaused) { 
         draw_pause();
         return;
+
     }
     requestAnimationFrame(loop);
 }
