@@ -5,6 +5,7 @@ const padding = 20;
 const startX = canvas.width/2 - 110;
 const startY = canvas.height/4 + 50;
 
+
 function draw_inventory(){
     ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
