@@ -81,13 +81,16 @@ function loop() {
     attack();
     move_ennemy();
     check_collision();
+    check_cookie_pickup();
     draw_entity(player);
     draw_attack_hitbox();
     draw_entity(ennemy);
+    if (cookieItem.visible) draw_entity(cookieItem);
     draw_hud();
     if (death()) return;
     if(isInventoryOpen){
         draw_inventory();
+        return;
     }
     if (isPaused) { 
         draw_pause();
