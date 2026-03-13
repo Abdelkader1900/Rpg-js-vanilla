@@ -52,7 +52,7 @@ function death(){
         ctx.fillStyle = "rgba(0,0,150,0.4)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = "white";
-        ctx.font = "60px Arial";
+        ctx.font = "60px Comic Sans MS";
         ctx.fillText("GAME OVER", canvas.width/2 - 165, canvas.height/2);
         return true;
     }
