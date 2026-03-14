@@ -9,7 +9,7 @@ function attack (){
 }
 
 function draw_attack_hitbox(){
-    ctx.fillStyle = "rgba(255, 220, 0, 0.45)";
+    ctx.fillStyle = "rgba(255, 221, 0, 0.27)";
     if (player.isAttacking){
         if (player.facing == "right"){
             ctx.fillRect(player.x + player.width ,player.y, player.attackRange, player.height);
@@ -22,6 +22,49 @@ function draw_attack_hitbox(){
         } 
     }
 }
+
+function damage(){
+     if( player.facing == "right"){
+       if(ennemy.x < player.x + player.width + player.attackRange/2 && 
+          ennemy.x + ennemy.width > player.x + player.width){
+        if(player.isAttacking){
+            ennemy.hp -= player.attack ;
+            ennemy.x += 2;
+        } 
+       }
+     }
+
+     if( player.facing == "left"){
+       if(ennemy.x > player.x - player.width - player.attackRange/2 && 
+          ennemy.x + ennemy.width < player.x + player.width){
+        if(player.isAttacking){
+            ennemy.hp -= player.attack ;
+            ennemy.x -= 2;
+        } 
+       }
+     }
+
+     if( player.facing == "down"){
+       if(ennemy.y <= player.y + player.height + player.attackRange/2 && 
+          ennemy.y > player.y + player.height){
+        if(player.isAttacking){
+            ennemy.hp -= player.attack ;
+            ennemy.y += 2;
+        } 
+       }
+     }
+
+     if( player.facing == "up"){
+       if(ennemy.y > player.y - player.height - player.attackRange/2 && 
+          ennemy.y + ennemy.height < player.y + player.height){
+        if(player.isAttacking){
+            ennemy.hp -= player.attack ;
+            ennemy.y -= 2;
+        } 
+       }
+     }
+    }
+         
 
 function check_collision(){
     if(player.x < ennemy.x + ennemy.width &&

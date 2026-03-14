@@ -6,6 +6,8 @@ const playerSprite = new Image();
 playerSprite.src = "src/player.png";
 const bg = new Image();
 bg.src = "src/bg.jpg";
+// const xp = new Image();
+// xp.src = "src/xpOrb.png"
 const cookieSprite = new Image();
 cookieSprite.src = "src/Cookie.png";
 
@@ -59,6 +61,13 @@ const cookieItem = {
     height: 30,
     visible: false,
     sprite: cookieSprite,
+}
+
+const xpOrb = {
+    x: getRandomInt(canvas.width-30),
+    y: getRandomInt(canvas.height-30),
+    width : 5,
+    height : 5,
 }
 
 function spawnCookie() {

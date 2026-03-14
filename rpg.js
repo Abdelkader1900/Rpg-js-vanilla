@@ -87,6 +87,7 @@ function loop() {
     draw_entity(ennemy);
     if (cookieItem.visible) draw_entity(cookieItem);
     draw_hud();
+    damage();
     if (death()) return;
     if(isInventoryOpen){
         draw_inventory();
