@@ -56,6 +56,15 @@ function death(){
         ctx.fillText("GAME OVER", canvas.width/2 - 165, canvas.height/2);
         return true;
     }
+
+    if (ennemy.hp <= 0){
+        ctx.fillStyle = "rgba(0, 150, 57, 0.4)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "white";
+        ctx.font = "60px Comic Sans MS";
+        ctx.fillText("YOU WIN", canvas.width/2 - 165, canvas.height/2);
+        return true;
+    }
     return false;
 }
 

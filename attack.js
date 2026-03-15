@@ -1,4 +1,5 @@
 let lastHit = 0;
+let lastdamage = 0;
 
 function attack (){
     if (keys[" "]){
@@ -24,47 +25,61 @@ function draw_attack_hitbox(){
 }
 
 function damage(){
-     if( player.facing == "right"){
-       if(ennemy.x < player.x + player.width + player.attackRange/2 && 
+    const cooldown = Date.now();
+    
+    if( player.facing == "right"){
+       if(ennemy.x < player.x + player.width + player.attackRange &&
           ennemy.x + ennemy.width > player.x + player.width){
         if(player.isAttacking){
-            ennemy.hp -= player.attack ;
-            ennemy.x += 2;
-        } 
+            if (cooldown - lastdamage > 1000){
+                lastdamage =  cooldown;
+                ennemy.hp -= player.attack ;
+                ennemy.x += 2;
+            }
+        }
        }
      }
 
      if( player.facing == "left"){
-       if(ennemy.x > player.x - player.width - player.attackRange/2 && 
-          ennemy.x + ennemy.width < player.x + player.width){
+       if(ennemy.x + ennemy.width > player.x - player.attackRange &&
+          ennemy.x < player.x){
         if(player.isAttacking){
-            ennemy.hp -= player.attack ;
-            ennemy.x -= 2;
-        } 
+             if (cooldown - lastdamage > 1000){
+                lastdamage =  cooldown;
+                ennemy.hp -= player.attack ;
+                ennemy.x -= 2;
+            }
+        }
        }
      }
 
      if( player.facing == "down"){
-       if(ennemy.y <= player.y + player.height + player.attackRange/2 && 
+       if(ennemy.y < player.y + player.height + player.attackRange &&
           ennemy.y > player.y + player.height){
         if(player.isAttacking){
-            ennemy.hp -= player.attack ;
-            ennemy.y += 2;
-        } 
+             if (cooldown - lastdamage > 1000){
+                lastdamage =  cooldown;
+                ennemy.hp -= player.attack ;
+                ennemy.y += 2;
+            }
+        }
        }
      }
 
      if( player.facing == "up"){
-       if(ennemy.y > player.y - player.height - player.attackRange/2 && 
-          ennemy.y + ennemy.height < player.y + player.height){
+       if(ennemy.y + ennemy.height > player.y - player.attackRange &&
+          ennemy.y < player.y){
         if(player.isAttacking){
-            ennemy.hp -= player.attack ;
-            ennemy.y -= 2;
-        } 
-       }
+            if (cooldown - lastdamage > 1000){
+                lastdamage =  cooldown;
+                ennemy.hp -= player.attack ;
+                ennemy.y -= 2;
+            }
+        }
+        }
      }
-    }
-         
+}
+
 
 function check_collision(){
     if(player.x < ennemy.x + ennemy.width &&
